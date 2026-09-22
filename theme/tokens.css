@@ -1,6 +1,8 @@
 /*
- * The website's visual identity. Every value below is a neutral starting
- * point — change them freely; this file belongs to the webdesigner.
+ * Communication and Transportation — visual identity.
+ *
+ * Dark brown/gold palette carried over from the legacy MWNF gallery
+ * ("Communication and Transportation", legacy env key `com`).
  *
  * Full token documentation with explanations:
  * node_modules/@museumwnf/viewer-layout/src/tokens.reference.css
@@ -8,44 +10,44 @@
 
 :root {
   /* ---------- Global ---------- */
-  --mwnf-font-body: system-ui, sans-serif;
-  --mwnf-font-heading: inherit;
+  --mwnf-font-body: 'Roboto', system-ui, sans-serif;
+  --mwnf-font-heading: 'Roboto Condensed', system-ui, sans-serif;
   --mwnf-line-height: 1.6;
   --mwnf-weight-heading: 700;
-  --mwnf-color-text: #1c1c1c;
-  --mwnf-color-background: #ffffff;
-  --mwnf-color-accent: #1c1c1c;
+  --mwnf-color-text: #1a1a1a;
+  --mwnf-color-background: #f0d4ad;
+  --mwnf-color-accent: #3c1f11;
   --mwnf-color-muted: #555555;
-  --mwnf-color-border: #dddddd;
-  --mwnf-content-width: 64rem;
+  --mwnf-color-border: #999999;
+  --mwnf-content-width: 1350px;
   --mwnf-content-padding: 1rem;
   --mwnf-space: 0.75rem;
   --mwnf-radius: 0.25rem;
-  --mwnf-section-border: 1px solid #dddddd;
+  --mwnf-section-border: 1px solid #999999;
   --mwnf-section-title-size: 1rem;
 
   /* ---------- Header ---------- */
   --mwnf-header-padding: 1.25rem;
-  --mwnf-header-background: transparent;
-  --mwnf-header-text: inherit;
+  --mwnf-header-background: #3c1f11;
+  --mwnf-header-text: #ffffff;
   --mwnf-header-title-size: 1.75rem;
   --mwnf-header-subtitle-size: 1rem;
-  --mwnf-header-subtitle-color: #555555;
+  --mwnf-header-subtitle-color: rgba(255, 255, 255, 0.85);
 
   /* ---------- Banner ---------- */
   --mwnf-banner-padding: 0;
-  --mwnf-banner-background: transparent;
-  --mwnf-banner-text-color: inherit;
+  --mwnf-banner-background: #3c1f11;
+  --mwnf-banner-text-color: #ffffff;
   --mwnf-banner-text-size: 1.25rem;
   --mwnf-banner-max-height: 20rem;
 
   /* ---------- Navigation ---------- */
   --mwnf-nav-padding: 0.5rem;
-  --mwnf-nav-background: transparent;
-  --mwnf-nav-border: 1px solid #dddddd;
+  --mwnf-nav-background: #760e17;
+  --mwnf-nav-border: 1px solid rgba(0, 0, 0, 0.18);
   --mwnf-nav-gap: 1rem;
-  --mwnf-nav-link-color: #1c1c1c;
-  --mwnf-nav-link-active-color: inherit;
+  --mwnf-nav-link-color: #ffffff;
+  --mwnf-nav-link-active-color: #ffffff;
   --mwnf-nav-link-weight: 500;
 
   /* ---------- Content ---------- */
@@ -54,8 +56,8 @@
 
   /* ---------- Hyperlinks ---------- */
   --mwnf-hyperlinks-padding: 1rem;
-  --mwnf-hyperlinks-background: transparent;
-  --mwnf-hyperlinks-link-color: #1c1c1c;
+  --mwnf-hyperlinks-background: #ac7931;
+  --mwnf-hyperlinks-link-color: #0000ff;
 
   /* ---------- Sponsors ---------- */
   --mwnf-sponsors-padding: 1rem;
@@ -65,8 +67,8 @@
 
   /* ---------- Footer ---------- */
   --mwnf-footer-padding: 1.25rem;
-  --mwnf-footer-background: transparent;
-  --mwnf-footer-text-color: #555555;
+  --mwnf-footer-background: #3c1f11;
+  --mwnf-footer-text-color: rgba(255, 255, 255, 0.85);
   --mwnf-footer-text-size: 0.875rem;
 
   /* ---------- Shared views (@museumwnf/viewer-core) ----------
