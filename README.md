@@ -1,84 +1,89 @@
-# communication
+# Communication and Transportation
 
-The **Communication and Transportation** gallery — one of the platform's DXA
-gallery sites, built on `@museumwnf/viewer-core` and `@museumwnf/viewer-layout`,
-its own texts in `locales/`, its own palette in `theme/`, and its own catalogue
-data from `@museumwnf/communication-data`.
+The **Museum With No Frontiers — Communication and Transportation** gallery, built from the published
+dataset `@museumwnf/communication-data`.
 
-Deployed at <https://museumwithnofrontiers.github.io/communication/>.
-
-## Packages
+A DXA gallery is the gallery family's website with this gallery's data. Its
+pages, page shell, menu and legacy redirects are the family's, in
+`@museumwnf/viewer-layout/dxa` (`galleryConfig`), over the family's data layer
+in `@museumwnf/viewer-core/dxa`. What is this gallery's own lives here: its
+values, its palette, its texts and its tests. The platform's architecture is
+described in
+[inventory-app#1510](https://github.com/museumwithnofrontiers/inventory-app/issues/1510).
 
 | Package | Role |
 | --- | --- |
-| `@museumwnf/viewer-core` | Routing, i18n, the shared DXA gallery data layer (`useGalleryData`, `useGalleryCollection`, `useGalleryTimeline`, `useGallerySheet`) |
-| `@museumwnf/viewer-layout` | The composed pages (Home/About/Credits/Partners/Collection/Timeline/ItemSheet/…), PageShell chrome, content components |
-| `@museumwnf/viewer-i18n` | The shared `gallery` text bundle every DXA gallery site starts from |
-| `@museumwnf/communication-data` | This site's own catalogue: items, partners, countries, timelines, dynasties, glossary, tags, the project manifest |
+| `@museumwnf/communication-data` | the dataset (JSON + `manifest.json`) |
+| `@museumwnf/viewer-core` | the engine (routing, data access, texts, languages) and the family's data layer (`/dxa`) |
+| `@museumwnf/viewer-layout` | the page structure and the family's pages (`/dxa`), themed through `theme/tokens.css` |
+| `@museumwnf/viewer-i18n` | the texts shared with the other MWNF websites (this one receives the `gallery` bundle) |
+
+All four publish publicly to npmjs, so `npm install` needs no authentication.
+Nothing in this repository holds a token.
 
 ## What is where
 
-- `src/dataset.config.js` — wires the data package into `createViewer()`: the
-  site name, the legacy palette-keyed `projectColors` map (one colour class
-  per source project this gallery's roster draws from), `noticeProjects` (the
-  Explore Islamic Art Collections partner note).
-- `src/composables/gallery.js` — this site's one instance of the shared DXA
-  gallery data layer, and the item-sheet spec additions
-  (`sourceDatabase`/`notice`/`museum`/`related`) that are genuinely this
-  gallery's own.
-- `src/views/` — the three views not yet promoted to
-  `@museumwnf/viewer-layout/views`: `Home.vue` (featured partners + sibling
-  galleries), `ItemSheet.vue`, `Timeline.vue` (the entrance form).
-- `src/styles/site.css` — this site's own palette variables and page reset.
-- `theme/tokens.css` — the webdesigner-facing chrome tokens (header, banner,
-  nav, footer) consumed by `@museumwnf/viewer-layout`.
-- `theme/overrides.css` — the legacy DXA gallery page shape (fixed-width
-  column, six-column menu bar, upper-cased title/menu, the two-column item
-  sheet) restated on PageShell's own classes, beyond what a token can express.
-- `locales/en.json` — this site's own texts, layered over the shared
-  `gallery` bundle.
+| Path | Contents |
+| --- | --- |
+| `src/dataset.config.js` | this gallery's own values: its package, name and address, the colour of each source project's chip, the projects whose sheets carry the Explore-partner notice, its credits text |
+| `src/main.js` | the entry point: the engine, the shared and own texts, the stylesheets |
+| `src/styles/site.css` | the palette the theme reads |
+| `theme/` | the visual identity: `tokens.css` (the normal surface), `overrides.css` (the escape hatch), `assets/` |
+| `locales/` | this gallery's own texts |
+| `tests/` | the smoke test, which mounts the whole website against its dataset |
 
-## Two layers, one merge rule
+A page that has to differ from the family's is this gallery's own component,
+registered on the same route name as an override of what `galleryConfig`
+returns; a page every gallery needs changed is a change to
+`@museumwnf/viewer-layout/dxa`.
 
-Every string a page renders comes from either `@museumwnf/viewer-i18n`'s
-shared `gallery` bundle or this site's own `locales/` files. Local wins: a key
-present in both is resolved from `locales/`. Most of this site's texts are the
-shared ones (`gallery.*`) — `locales/en.json` carries only what has to be
-this site's own: `communication.credits.body` (the credits page's own
-history) and this site's copy of `gallery.about.body` (the About page,
-customised with this gallery's name and its own database links). No key here
-uses string interpolation or HTML tags, and no `{`/`}` appears in translator-
-edited text.
+## Texts
+
+The texts every MWNF gallery shares — the menu, the item-sheet labels, the
+editorial pages — come from
+[`viewer-i18n`](https://github.com/museumwithnofrontiers/viewer-i18n) as the
+`gallery` bundle. `locales/` holds only what belongs to this gallery, and may
+overload any shared entry by spelling out the same name. The local file is
+applied last: **local wins**, the only merge rule there is.
 
 ## Development
 
-Everything runs from the host with plain Node — no Docker in this repo.
+The preview runs in Docker; nothing needs to be installed on the host.
 
-```
-npm ci
-npm run dev      # http://localhost:5173
-npm run lint
-npm test
-npm run build
+```bash
+docker compose up
 ```
 
-## Translator
+Then open <http://localhost:5173>. `npm run build` and `npm run test` are the
+checks CI runs.
 
-Every visible string lives in `locales/<lang>.json`, one flat object of
-`key: "Markdown text"`. Add a new language by adding a new file with the same
-keys; nothing else changes. Do not use `{`/`}` in a value — the viewer treats
-them as placeholders — and do not write raw HTML; use Markdown instead
-(`**bold**`, `*italic*`, `[text](url)`).
+## Translator — editing the website's texts
 
-## Webdesigner
+You need a GitHub account and a browser. The files under `locales/` hold this
+gallery's own texts, one file per language (`en.json` is English). Texts
+shared with the other websites are edited in
+[`viewer-i18n`](https://github.com/museumwithnofrontiers/viewer-i18n) the same
+way; the museum content arrives translated in the dataset.
 
-`theme/tokens.css` is the palette and spacing every page's chrome reads —
-change it freely, it is this site's own. `theme/overrides.css` is the escape
-hatch for anything a token cannot express (the legacy site's exact page
-shape); most sites will never need to touch it.
+1. Open `locales/` on this repository's GitHub page and click the language file.
+2. Click the pencil (✏️). Change only the text after the colon; the entry's
+   name before it stays as it is.
+3. Click "Commit changes…", then "Propose changes".
+4. A green tick on the automatic check means the change goes live by itself
+   a few minutes later; otherwise a comment says what to fix.
+
+A text is just text, with Markdown if you want (`**bold**`, `*italic*`,
+`[a link](https://example.org)`). It may not contain HTML, or `{` and `}`.
+
+## Webdesigner — theming the website
+
+The visual identity lives in `theme/`: `tokens.css` (colours, fonts, spacing),
+`overrides.css` (escape hatch) and `assets/`. A change to a page or a
+component itself is a request for `@museumwnf/viewer-layout`: open an issue
+there.
 
 ## Deployment
 
-Pushing to `main` runs `.github/workflows/deploy.yml`, which builds and
-publishes to GitHub Pages at
-<https://museumwithnofrontiers.github.io/communication/>.
+Every push to `main` builds and publishes the website to
+<https://museumwithnofrontiers.github.io/communication/> through the reusable workflows in
+[`museumwithnofrontiers/viewer-workflows`](https://github.com/museumwithnofrontiers/viewer-workflows).

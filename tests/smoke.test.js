@@ -136,7 +136,7 @@ describe('website smoke test', () => {
     const { app, host } = await mountSite(`#/item/${items[0].id}`)
     await vi.waitFor(() => expect(host.querySelector('.mwnf-sheet__label')).not.toBeNull(), { timeout: 20000 })
     expect(host.querySelector('.mwnf-record')).not.toBeNull()
-    expect(host.querySelector('.languages')).not.toBeNull()
+    expect(host.querySelector('.mwnf-dxa-item__languages')).not.toBeNull()
     expect(host.querySelector('.mwnf-sheet-related')).not.toBeNull()
     // metanull/inventory-app#1727 phase 4: the chip and the "Source database"
     // line both read the item's project name from `manifest.projects` now
@@ -145,7 +145,7 @@ describe('website smoke test', () => {
     // 19th century.", the project this borrows-only gallery draws the most
     // items from (99 of 126).
     // inventory-app#1728: `.source-reference` is `RecordSheetView`'s own
-    // `.mwnf-sheet-source` block now, built from composables/gallery.js's
+    // `.mwnf-sheet-source` block now, built from the family data layer's
     // `itemSheet.sourceDatabase` spec key rather than local markup.
     expect(host.querySelector('.mwnf-sheet-source').textContent).toContain('Sharing History')
     app.unmount()
@@ -236,7 +236,7 @@ describe('website smoke test', () => {
   // metanull/carpets#40: `RecordView`'s default `source` slot renders the
   // credit as soon as the website declares `site.origin` (dataset.config.js),
   // independently of the sheet spec's own `citation.permalink: false`
-  // (composables/gallery.js) — that flag only drops the address from the "cite
+  // (the family data layer) — that flag only drops the address from the "cite
   // this page" sentence, which legacy's DXA sheets never printed either.
   it('renders the source credit on the item sheet, addressed to this deployed site', async () => {
     const [items] = await loadEntities(['items'])
@@ -273,7 +273,7 @@ describe('website smoke test', () => {
   // The timeline entrance/results and the gallery run on the platform's
   // composed views (metanull/viewer-layout#37): the country and period
   // controls, the events list and the "See gallery" cross-link come from the
-  // spec in composables/gallery.js.
+  // spec in the family data layer.
   it('renders the timeline results on the composed timeline view', async () => {
     const { app, host } = await mountSite('#/timeline-results?country=rm')
     // The summary counts every matching event (18); three of Romania's own
@@ -329,7 +329,7 @@ describe('website smoke test', () => {
   // The partner pages run on the platform's composed views
   // (metanull/viewer-layout#38, #41): the grouping, the A-Z toggle, the
   // record's language, the map and the member-items grid come from the specs
-  // in composables/gallery.js. What only this gallery has — the "no objects"
+  // in the family data layer. What only this gallery has — the "no objects"
   // line for a partner listed under decision MWNF-384 — fills the list's
   // `#row` slot.
   it('renders the partners list on the composed partner-list view', async () => {
