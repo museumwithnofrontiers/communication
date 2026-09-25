@@ -144,7 +144,7 @@ describe('website smoke test', () => {
     // belongs to "Sharing History - Arab-Ottoman-European relations in the
     // 19th century.", the project this borrows-only gallery draws the most
     // items from (99 of 126).
-    // inventory-app#1728: `.source-reference` is `RecordSheetView`'s own
+    // inventory-app#1728: `.source-reference` is `ItemDetailView`'s own
     // `.mwnf-sheet-source` block now, built from the family data layer's
     // `itemSheet.sourceDatabase` spec key rather than local markup.
     expect(host.querySelector('.mwnf-sheet-source').textContent).toContain('Sharing History')
@@ -159,7 +159,7 @@ describe('website smoke test', () => {
   it('colours and names the source-database chip from the manifest projects section', async () => {
     const { app, host } = await mountSite('#/item/f542a798-8c47-5278-ad25-50059baf16a0')
     await vi.waitFor(() => expect(host.querySelector('.mwnf-sheet-source .mwnf-chip')).not.toBeNull(), { timeout: 20000 })
-    // inventory-app#1728: `RecordSheetView`'s own `.mwnf-sheet-source__line`
+    // inventory-app#1728: `ItemDetailView`'s own `.mwnf-sheet-source__line`
     // renders the chip as a decorative, `aria-hidden` colour dot beside the
     // text — the project name is the line's own text now, not the chip
     // span's, unlike the local markup this replaces.
@@ -174,7 +174,7 @@ describe('website smoke test', () => {
   // list of project ids, not a literal legacy project-code check — it
   // must show for that project's own records and stay off everyone else's.
   // inventory-app#1728: `.links-container`/`.info-eiac` are
-  // `RecordSheetView`'s own `.mwnf-sheet-source`/`.mwnf-sheet-notice` now.
+  // `ItemDetailView`'s own `.mwnf-sheet-source`/`.mwnf-sheet-notice` now.
   it('shows the explore-partner notice only for the project dataset.config.js lists', async () => {
     const epm = await mountSite('#/item/2735c542-1b56-59a7-9fac-72518fe82535')
     await vi.waitFor(() => expect(epm.host.querySelector('.mwnf-sheet-source')).not.toBeNull(), { timeout: 20000 })
@@ -191,7 +191,7 @@ describe('website smoke test', () => {
   // artistic-introduction blocks are purely manifest-driven now — the
   // importer's URL map (scripts/importer/src/utils/project-urls.ts, #1753)
   // fills `manifest.projects[*].related_database_url` /
-  // `artistic_introduction_url` at import time, and `RecordSheetView`'s
+  // `artistic_introduction_url` at import time, and `ItemDetailView`'s
   // `related.databaseLabel`/`.artisticIntroductionLabel` (composables/
   // gallery.js's `itemSheet` spec, inventory-app#1728) render a block iff
   // that project's URL is non-null. communication-data 1.0.1 carries both
