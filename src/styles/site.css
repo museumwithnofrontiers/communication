@@ -33,10 +33,6 @@
 
   --shadow-grey:  #707070;
   --link-blue:    #0000ff;
-
-  --dia-yellow: #ffcc00;  /* Discover Islamic Art (ISL / EPM) */
-  --dba-blue:   #001d66;  /* Discover Baroque Art (DBA / BAR) */
-  --sh-red:     #900000;  /* Sharing History (AWE) */
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }

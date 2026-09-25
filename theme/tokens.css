@@ -81,4 +81,7 @@
   --vc-content-width: 100%;
   --vc-content-padding: 0;
   --vc-weight-label: 600;
+
+  /* The item page's language band, in the page background as before. */
+  --mwnf-dxa-band-background: var(--background-color);
 }
